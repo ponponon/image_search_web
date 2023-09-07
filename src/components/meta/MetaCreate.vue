@@ -130,10 +130,10 @@ const handleUpload = () => {
             );
             responseBody.value = response.data;
             responseData.value = response.data;
-
         } catch (error) {
-            console.error(error);
-            message.error("请求出错了");
+            // console.error(error);
+            console.error('捕捉到错误了');
+            message.error(item.name + " 上传出错了");
         }
     })
 };

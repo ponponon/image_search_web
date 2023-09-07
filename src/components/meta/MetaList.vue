@@ -175,13 +175,13 @@ const sendRequest = () => {
         }
     }
 
-    const url = "http://127.0.0.1:6200/meta/image";
+    const url = "http://127.0.0.1:6200/meta/image?offset=0&limit=20";
     axios
         .get(url, {
             params: queryParams,
         })
         .then((response) => {
-            dataSource.value = response.data;
+            dataSource.value = response.data.data;
         })
         .catch((error) => {
             console.error(error);
