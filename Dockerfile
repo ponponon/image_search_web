@@ -13,3 +13,4 @@ CMD nginx -g "daemon off;"
 
 # 创建 /admin-fe-access.log，启动nginx并使用tail -f模拟类似pm2的阻塞式进程。
 # CMD touch /admin-fe-access.log && nginx && tail -f /admin-fe-access.log
+# nohup yarn serve > run.log 2>&1 &
