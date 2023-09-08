@@ -128,15 +128,15 @@ const formattedScore = (score) => {
 
 const handleUpload = async () => {
     const formData = new FormData();
-    formData.append("sample_image", fileList_1.value[0].originFileObj);
+    formData.append("file", fileList_1.value[0].originFileObj);
 
     try {
         const response = await axios.post(
-            "http://127.0.0.1:6200/search",
+            "http://127.0.0.1:6200/sample/file",
             formData
         );
-        responseBody.value = response.data;
-        responseData.value = response.data;
+        responseBody.value = response.data.data;
+        responseData.value = response.data.data;
     } catch (error) {
         console.error(error);
         message.error("请求出错了");

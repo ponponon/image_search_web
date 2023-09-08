@@ -122,19 +122,24 @@ const handleUpload = () => {
         const formData = new FormData();
         formData.append("file", item.originFileObj);
 
-        try {
-            console.log(`第 ${index + 1} 个文件上传`, item.name);
-            const response = axios.post(
-                "http://127.0.0.1:6200/meta/image/file",
-                formData
-            );
-            responseBody.value = response.data;
-            responseData.value = response.data;
-        } catch (error) {
-            // console.error(error);
-            console.error('捕捉到错误了');
-            message.error(item.name + " 上传出错了");
-        }
+        console.log(`第 ${index + 1} 个文件上传`, item.name);
+
+        axios
+            .post("http://127.0.0.1:6200/meta/image/file", formData)
+            .then((response) => {
+                if (response.status === 500) {
+                    console.error(`第 ${index + 1} 个文件上传失败:`, response.data);
+                    message.error(response.data.message);
+                } else {
+                    responseBody.value = response.data;
+                    responseData.value = response.data;
+                    message.success(item.name + " 上传成功", 2);
+                }
+            })
+            .catch((error) => {
+                console.error('捕捉到错误了', error);
+                message.error(error.response.data.message);
+            });
     })
 };
 
