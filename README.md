@@ -22,3 +22,10 @@ yarn lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+
+# 生产运行
+
+```shell
+git pull && make build && docker-compose up -d
+```
