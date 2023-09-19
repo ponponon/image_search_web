@@ -48,23 +48,22 @@
     <a-row>
         <template v-for="(item, index) in responseData" :key="index">
             <a-col :span="6">
-                <div class="container-item" style="background-color: #ffffff;margin-left: 20px; margin-right: 20px">
-                    <img width="250" alt="logo" :src=item.file_url />
-                    <p>母本 hashcode: {{ item.hash_code }}</p>
+                <div class="container-item"
+                    style="background-color: #ffffff;margin-left: 5px; margin-right: 5px; display: flex; flex-direction: column; align-items: center;">
+                    <!-- 使用flex布局，让img标签的宽度自动填充整个容器 -->
+                    <img style="width: 100%; max-width: 100%;" alt="logo" :src="item.file_url" />
+                    <br />
+                    <p>母本 meta_uuid</p>
+                    <br />
+                    <p>{{ item.meta_uuid }}</p>
                     <div>相似度评分: <p style="font-size: 30px; margin-bottom: 0">{{ formattedScore(item.score) }}</p>
                     </div>
-                    <p>距离{{ item.distance }}</p>
+                    <p>欧式距离 {{ formattedDistance(item.distance) }}</p>
                 </div>
             </a-col>
-            <!-- <a-col :span="6">
-                <p>母本 hashcode: {{ item.hash_code }}</p>
-                <div>相似度评分: <p style="font-size: 30px; margin-bottom: 0">{{ formattedScore(item.score) }}</p>
-                </div>
-
-                <p>距离{{ item.distance }}</p>
-            </a-col> -->
         </template>
     </a-row>
+
     <a-modal :visible="previewVisible" :title="previewTitle" :footer="null" @cancel="handleCancel">
         <img alt="example" style="width: 100%" :src="previewImage" />
     </a-modal>
@@ -102,7 +101,30 @@ const previewVisible = ref(false);
 const previewImage = ref("");
 const previewTitle = ref("");
 
+const loading = false;
 
+// 标记每个图片是否已加载
+const itemLoaded = ref(false);
+
+// 在图片加载后将itemLoaded设置为true
+const onImageLoad = () => {
+    itemLoaded.value = true;
+};
+
+
+const formattedDistance = (distance) => {
+    return distance.toFixed(4);
+};
+
+const maxImageWidth = 250;
+
+const calculateImageWidth = () => {
+    const windowWidth = window.innerWidth;
+    console.log('windowWidth', windowWidth)
+    const cw = Math.min(maxImageWidth, windowWidth / 4)
+    console.log('cw', cw)
+    return cw // 这里除以4是因为每行有4个图片
+};
 
 
 const handleCancel = () => {
@@ -132,7 +154,7 @@ const handleUpload = async () => {
 
     try {
         const response = await axios.post(
-            "http://127.0.0.1:6200/sample/file",
+            "/api/sample/file",
             formData
         );
         responseBody.value = response.data.data;
