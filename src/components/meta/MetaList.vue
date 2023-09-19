@@ -1,8 +1,5 @@
 <template>
     <top-bar></top-bar>
-
-
-
     <div class="container">
         <div class="container-item">
             <a-form :model="formState" :label-col="labelCol" :wrapper-col="wrapperCol">
@@ -121,7 +118,12 @@ const columns = [
         key: "id",
     },
     {
-        title: "hash_code",
+        title: "meta_uuid",
+        dataIndex: "meta_uuid",
+        key: "meta_uuid",
+    },
+    {
+        title: "图片的 md5 值",
         dataIndex: "hash_code",
         key: "hash_code",
     },
