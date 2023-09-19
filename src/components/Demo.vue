@@ -1,49 +1,18 @@
 <template>
-    <p>Align Top</p>
-    <a-row type="flex" justify="center" align="top">
-      <a-col :span="4">
-        <p class="height-100">col-4</p>
-      </a-col>
-      <a-col :span="4">
-        <p class="height-50">col-4</p>
-      </a-col>
-      <a-col :span="4">
-        <p class="height-120">col-4</p>
-      </a-col>
-      <a-col :span="4">
-        <p class="height-80">col-4</p>
-      </a-col>
-    </a-row>
-  
-    <p>Align Center</p>
-    <a-row type="flex" justify="space-around" align="middle">
-      <a-col :span="4">
-        <p class="height-100">col-4</p>
-      </a-col>
-      <a-col :span="4">
-        <p class="height-50">col-4</p>
-      </a-col>
-      <a-col :span="4">
-        <p class="height-120">col-4</p>
-      </a-col>
-      <a-col :span="4">
-        <p class="height-80">col-4</p>
-      </a-col>
-    </a-row>
-  
-    <p>Align Bottom</p>
-    <a-row type="flex" justify="space-between" align="bottom">
-      <a-col :span="4">
-        <p class="height-100">col-4</p>
-      </a-col>
-      <a-col :span="4">
-        <p class="height-50">col-4</p>
-      </a-col>
-      <a-col :span="4">
-        <p class="height-120">col-4</p>
-      </a-col>
-      <a-col :span="4">
-        <p class="height-80">col-4</p>
-      </a-col>
-    </a-row>
-  </template>
+    <div>
+        <a-pagination v-model:current="current1" show-quick-jumper :total="500" @change="onChange" />
+        <br />
+        <!-- <a-pagination v-model:current="current2" show-quick-jumper :total="500" disabled show-less-items
+            @change="onChange" /> -->
+    </div>
+</template>
+<script setup>
+import { ref } from 'vue';
+
+
+const current1 = ref(1);
+const current2 = ref(2);
+const onChange = pageNumber => {
+    console.log('Page: ', pageNumber);
+};
+</script>

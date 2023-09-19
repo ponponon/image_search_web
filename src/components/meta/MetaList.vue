@@ -43,6 +43,9 @@
                 </template>
             </template>
         </a-table>
+
+        <a-pagination v-model:current="offsetPlusOne" show-quick-jumper :total="totalMeta" @change="onChange" />
+        <br />
     </div>
 
     <a-drawer :visible="isDrawerVisible" placement="right" @close="closeDrawer" :width="1000">
@@ -54,12 +57,16 @@
 
 <script setup>
 import axios from "axios";
-import { ref, reactive } from "vue";
+import { ref, reactive, computed } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { onMounted } from "vue";
 
 onMounted(async () => {
     document.title = "母本列表"; // 设置浏览器标签页的标题
+});
+
+const offsetPlusOne = computed(() => {
+    return formState.value.offset + 1;
 });
 
 const route = useRoute();
@@ -104,7 +111,10 @@ const formState = reactive({
     hash_code: route.query.hash_code || null,
     company_id: route.query.company_id || null,
     limit: route.query.limit || 20,
+    offset: route.query.offset || 0,
 });
+
+const totalMeta = ref(0);
 
 const columns = [
     {
@@ -184,6 +194,7 @@ const sendRequest = () => {
         })
         .then((response) => {
             dataSource.value = response.data.data;
+            totalMeta.value = response.data.total;
         })
         .catch((error) => {
             console.error(error);
