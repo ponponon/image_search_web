@@ -13,7 +13,7 @@
                         提交
                     </a-button>
                     <span style="margin-left: 25px"></span>
-                    <a-button @click="clearForm">清空</a-button>
+                    <!-- <a-button @click="clearForm">清空</a-button> -->
                 </a-form-item>
             </a-form>
         </div>
@@ -65,9 +65,7 @@ onMounted(async () => {
     document.title = "母本列表"; // 设置浏览器标签页的标题
 });
 
-const offsetPlusOne = computed(() => {
-    return formState.value.offset + 1;
-});
+
 
 const route = useRoute();
 const router = useRouter();
@@ -115,6 +113,20 @@ const formState = reactive({
 });
 
 const totalMeta = ref(0);
+
+const offsetPlusOne = computed(() => {
+//   return formState.value ? formState.value.offset + 1 : 0;
+  return formState.value.offset + 1
+});
+
+const onChange = (pageIndex, pageSize) => {
+    console.log('pageIndex', pageIndex)
+    console.log('pageSize', pageSize)
+    formState.offset = pageIndex - 1
+    formState.limit = pageSize
+
+    sendRequest()
+};
 
 const columns = [
     {
