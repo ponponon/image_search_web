@@ -11,5 +11,3 @@ services:
         max-file: "5"
     ports:
       - "6201:6201"
-    # command: gunicorn confirm_web_api.wsgi -c gunicorn.conf.py 
-    # command: python3 manage.py runserver 0.0.0.0:60004
