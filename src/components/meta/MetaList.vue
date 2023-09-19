@@ -43,8 +43,10 @@
                 </template>
             </template>
         </a-table>
-
-        <a-pagination v-model:current="offsetPlusOne" show-quick-jumper :total="totalMeta" @change="onChange" />
+        <br />
+        <br />
+        <a-pagination  v-model:current="pageIndex" v-model:pageSize="pageSize" show-quick-jumper
+            :total="totalMeta" @change="onChange" />
         <br />
     </div>
 
@@ -114,16 +116,19 @@ const formState = reactive({
 
 const totalMeta = ref(0);
 
-const offsetPlusOne = computed(() => {
-//   return formState.value ? formState.value.offset + 1 : 0;
-  return formState.value.offset + 1
-});
 
-const onChange = (pageIndex, pageSize) => {
-    console.log('pageIndex', pageIndex)
-    console.log('pageSize', pageSize)
-    formState.offset = pageIndex - 1
-    formState.limit = pageSize
+const pageIndex = ref(1)
+const pageSize = ref(20)
+
+const onChange = (_pageIndex, _pageSize) => {
+    console.log('_pageIndex', _pageIndex)
+    console.log('_pageSize', _pageSize)
+    pageIndex.value = _pageIndex
+    pageSize.value = _pageSize
+
+
+    formState.offset = parseInt((_pageIndex - 1) * _pageSize)
+    formState.limit = _pageSize
 
     sendRequest()
 };
@@ -191,6 +196,8 @@ const sendRequest = () => {
 
     const queryParams = {};
 
+    console.log('formState', formState)
+
     for (const key in formState) {
         if (Reflect.has(formState, key)) {
             if (formState[key] !== null) {
@@ -199,7 +206,9 @@ const sendRequest = () => {
         }
     }
 
-    const url = "/api/meta/image?offset=0&limit=20";
+    console.log('queryParams', queryParams)
+
+    const url = "/api/meta/image";
     axios
         .get(url, {
             params: queryParams,
@@ -270,5 +279,9 @@ const wrapperCol = {
     padding: 25px;
     border-width: 0 0 1px;
     margin-bottom: 20px;
+}
+
+.pagination-right {
+    float: right;
 }
 </style>
