@@ -125,7 +125,7 @@ const handleUpload = () => {
         console.log(`第 ${index + 1} 个文件上传`, item.name);
 
         axios
-            .post("http://127.0.0.1:6200/meta/image/file", formData)
+            .post("/api/meta/image/file", formData)
             .then((response) => {
                 if (response.status === 500) {
                     console.error(`第 ${index + 1} 个文件上传失败:`, response.data);
