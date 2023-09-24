@@ -8,11 +8,13 @@
             </a-menu-item>
 
             <a-menu-item key="MetaList">
+                <img class="icon top-icon" src="@/assets/list.svg" alt="List Meta Logo" style="margin-right: 5px" />
                 查看母本
             </a-menu-item>
 
             <a-menu-item key="MetaCreate">
-                插入母本
+                <img class="icon top-icon" src="@/assets/upload2.svg" alt="Upload Meta Logo" style="margin-right: 5px" />
+                上传母本
             </a-menu-item>
 
 

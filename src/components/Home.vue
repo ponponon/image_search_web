@@ -1,27 +1,12 @@
 <template>
     <top-bar></top-bar>
-
-
-
     <div class="container">
         <div class="container-item">
             <div>
                 <a-row>
-                    <a-typography-title>相似度搜索:</a-typography-title>
+                    <a-typography-title class="centered-text">以图搜图</a-typography-title>
                 </a-row>
-                <a-row>
-                    <a-typography-paragraph> 选择图片 </a-typography-paragraph>
-                </a-row>
-
-                <a-row>
-                    <a-typography-paragraph>
-                        评分范围在 0-100 分，100 分是满分。如果图片相似度太小，会出现负分
-                    </a-typography-paragraph>
-                </a-row>
-
-                <a-row>
-                    <br />
-                </a-row>
+                <br />
 
                 <a-row>
                     <a-col :span="24" style="text-align: center">
@@ -38,9 +23,14 @@
 
                 <a-row>
                     <a-col :span="24" style="text-align: center">
-                        <a-button type="primary" @click="handleUpload" style="text-align: center">上传</a-button>
+                        <a-button type="primary" @click="handleUpload" style="text-align: center">上传并搜索</a-button>
                     </a-col>
                 </a-row>
+
+                <a-row>
+                    <a-typography-paragraph>  <blockquote> TIPs: 评分范围在 0-100 分，100 分是满分。如果图片相似度太小，会出现负分</blockquote> </a-typography-paragraph>
+                </a-row>
+
             </div>
         </div>
     </div>
@@ -226,5 +216,10 @@ body {
 .ant-upload-select-picture-card .ant-upload-text {
     margin-top: 8px;
     color: #666;
+}
+.centered-text {
+    display:inline-block;
+    text-align: center;
+    margin:0 auto;
 }
 </style>
