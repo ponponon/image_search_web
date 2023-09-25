@@ -49,7 +49,7 @@
         </div>
     </div>
 
-    <div class="container">
+    <!-- <div class="container">
         <div class="container-item">
             <a-list item-layout="vertical" :data-source="responseData">
                 <template #renderItem="{ item }">
@@ -60,7 +60,7 @@
                 </template>
             </a-list>
         </div>
-    </div>
+    </div> -->
 
     <a-modal :visible="previewVisible" :title="previewTitle" :footer="null" @cancel="handleCancel">
         <img alt="example" style="width: 100%" :src="previewImage" />
@@ -117,13 +117,29 @@ const responseBody = ref(null);
 const responseData = ref([]);
 
 
+
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+
+
 const handleUpload = () => {
+
+    const uploadingCount = ref(0);
+
     fileList_1.value.forEach((item, index) => {
         const formData = new FormData();
         formData.append("file", item.originFileObj);
 
         console.log(`第 ${index + 1} 个文件上传`, item.name);
 
+        uploadingCount.value = uploadingCount.value + 1
+        console.log('uploadingCount >>>', uploadingCount.value)
+
+
+        console.log('开始<<<');
         axios
             .post("/api/meta/image/file", formData)
             .then((response) => {
@@ -139,8 +155,20 @@ const handleUpload = () => {
             .catch((error) => {
                 console.error('捕捉到错误了', error);
                 message.error(error.response.data.message);
+            })
+            .finally(() => {
+                console.log('>> 上传图片完成');
+                uploadingCount.value = uploadingCount.value - 1;
             });
+
+
+        // break;
+        console.log('结束>>');
+        // }
+
     })
+    console.log('上传结束')
+    console.log('uploadingCount >>>>>>>>', uploadingCount.value)
 };
 
 
