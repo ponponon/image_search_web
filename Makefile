@@ -1,5 +1,5 @@
 NAME = ponponon/image_search_web
-VERSION = 2023.09.07.1
+VERSION = 2023.10.31.1
 
 .PHONY: build up stop logs
 
@@ -9,6 +9,8 @@ stop: docker-compose-stop
 logs: docker-compose-logs
 
 docker-build:
+	yarn install       
+	yarn build
 	docker build -t "${NAME}:${VERSION}" .
 
 docker-compose-up:

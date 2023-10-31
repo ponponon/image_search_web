@@ -136,10 +136,6 @@ const handleUpload = () => {
         console.log(`第 ${index + 1} 个文件上传`, item.name);
 
         uploadingCount.value = uploadingCount.value + 1
-        console.log('uploadingCount >>>', uploadingCount.value)
-
-
-        console.log('开始<<<');
         axios
             .post("/api/meta/image/file", formData)
             .then((response) => {
@@ -157,18 +153,9 @@ const handleUpload = () => {
                 message.error(error.response.data.message);
             })
             .finally(() => {
-                console.log('>> 上传图片完成');
                 uploadingCount.value = uploadingCount.value - 1;
             });
-
-
-        // break;
-        console.log('结束>>');
-        // }
-
     })
-    console.log('上传结束')
-    console.log('uploadingCount >>>>>>>>', uploadingCount.value)
 };
 
 
