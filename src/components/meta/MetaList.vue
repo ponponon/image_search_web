@@ -36,9 +36,9 @@
 
 
 
-                <template v-if="column.key === 'file_url'">
+                <template v-if="column.key === 'file_relative_url'">
                     <div v-if="record">
-                        <a-image :width="200" :src="record.file_url"></a-image>
+                        <a-image :width="200" :src="record.file_relative_url"></a-image>
                     </div>
                 </template>
             </template>
@@ -85,7 +85,7 @@ const state = reactive({
 
 const openDrawer = (record) => {
     selectedRowData.value = record;
-    fetchText(record.file_url);
+    fetchText(record.file_relative_url);
     isDrawerVisible.value = true;
 };
 
@@ -95,8 +95,8 @@ const closeDrawer = () => {
     selectedRowData.value = null; // 关闭悬浮窗时重置选中行数据
 };
 
-const fetchText = (file_url) => {
-    const url = file_url;
+const fetchText = (file_relative_url) => {
+    const url = file_relative_url;
     axios
         .get(url)
         .then((response) => {
@@ -135,9 +135,9 @@ const onChange = (_pageIndex, _pageSize) => {
 
 const columns = [
     {
-        title: "file_url",
-        dataIndex: "file_url",
-        key: "file_url",
+        title: "file_relative_url",
+        dataIndex: "file_relative_url",
+        key: "file_relative_url",
     },
     {
         title: "id(Mysql)",

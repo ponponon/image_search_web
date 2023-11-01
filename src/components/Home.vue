@@ -41,7 +41,7 @@
                 <div class="container-item"
                     style="background-color: #ffffff;margin-left: 5px; margin-right: 5px; display: flex; flex-direction: column; align-items: center;">
                     <!-- 使用flex布局，让img标签的宽度自动填充整个容器 -->
-                    <img style="width: 100%; max-width: 100%;" alt="logo" :src="item.file_url" />
+                    <img style="width: 100%; max-width: 100%;" alt="logo" :src="item.file_relative_url" />
                     <br />
                     <p>母本 meta_uuid</p>
                     <br />

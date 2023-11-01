@@ -54,7 +54,7 @@
             <a-list item-layout="vertical" :data-source="responseData">
                 <template #renderItem="{ item }">
                     <div>
-                        <img width="272" alt="logo" :src=item.file_url />
+                        <img width="272" alt="logo" :src=item.file_relative_url />
                         <p>{{ item.hash_code }}</p>
                     </div>
                 </template>
